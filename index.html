@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Math Detective Agency</title>
+<style>
+:root{--bg:#f6f4ee;--fg:#1f2430;--card:#fff;--mut:#6b7280;--ac:#1d4ed8;--ok:#15803d;--no:#b91c1c;--bd:#dcd8cc;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171f;--fg:#e8e9ee;--card:#1d212c;--mut:#9aa1b2;--ac:#7aa2ff;--ok:#4ade80;--no:#f87171;--bd:#333a4a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14171f;--fg:#e8e9ee;--card:#1d212c;--mut:#9aa1b2;--ac:#7aa2ff;--ok:#4ade80;--no:#f87171;--bd:#333a4a;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:760px;margin:0 auto;padding:14px}
+h1{font-size:1.25rem;margin:4px 0 2px}.sub{color:var(--mut);font-size:.85rem;margin-bottom:10px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+select,input,button{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:7px 10px}
+button{cursor:pointer}.tabs button{flex:1}.tabs .on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:10px 0}
+.tag{display:inline-block;background:var(--ac);color:#fff;border-radius:99px;padding:2px 12px;font-size:.8rem;margin-bottom:6px}
+.big{font-size:1.2rem;margin:6px 0 12px}.tip{color:var(--mut);font-size:.85rem}
+.ans{border-top:1px dashed var(--bd);margin-top:10px;padding-top:8px;color:var(--ok);font-weight:600}
+ol{padding-left:22px;margin:6px 0}.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 4px;border-bottom:1px solid var(--bd)}
+.b{width:48px;font-size:1.1rem;margin-left:6px}.b.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.b.no{background:var(--no);color:#fff;border-color:var(--no)}
+.chip{display:inline-block;border:1px solid var(--bd);border-radius:6px;padding:1px 7px;margin:2px;font-size:.8rem}
+.mut{color:var(--mut);font-size:.85rem}details{margin-top:8px}summary{cursor:pointer;color:var(--ac)}
+</style></head><body><div id="app"></div>
+<script>
+const D={"6A":["Abdullah Shiekh Syed","Dhruv Manas J","Eswar Batlanki","Giridhar","Haarendra D","Leo Michael S","Nikhil Krishna R","Perumalla Saketh","Pranav Vijayan","Sadhityan Deepak Raj","Sairam Kishore","Sanjay Ram Narne","Sharan T","Shoumik Dash","Theekshaanth J","Udaya Sangu Pandian H","Vedanth M G","Zayyanur Rahman","Agnes Elvin","Ananya A","Anugraha D S","Ayushi Mitra","Harinakshi H","Jahnavi","Jenitha J","Mahaswana K","Reshika Sree K","Rishivanthika M","Shakthi A","Subiksha S","Tanisha H","Tejaswini M","Thamezhini A"],"6B":["Aadhav S","Adhvaith Ram","Arjun Kannadasan","Arjun Krishna","Ayaan Panda","Bhargav","Doushik","Jitin Theetla D","Kavish","Mayukh","Mughilan","Nakshatran","Rana Aditya","Sai Anish","Sam Jenish","Shrivan","Swaran Aditya","Vihan G","Aishwarya Krishna","Avika Sharma","Gunavarshini S","Heera Selvan","Jiya Gowda","Lathika K","Pooja Sai P D","Poorvitha K B","Shanvika Ganesh","Tejakshara"],"7A":["Abdul Kalam","Anns Rojawin","Aryan Meher","Dhakshin V","Dhakshith Ranveer","Dhiyash","Githin","Himansh","Laxman","Mithilash","Mithul","Muhammad Raoof","Satvik Devana","Siva Karthick","Sivadarma","Vetrivel","Vivaan","Yukesh","Aarohi","Achira","Akalya","Hemisha","Katyayini","Kaushalya","Lekha Sree","Nakshatra","Nehasree","Rafa","Rakshana","Rithvika","Samiksha","Sanshitha","Shaik Mohammad Khalid"],"7B":["Aakash Murthy G","Aarav Kushawaha","Aasishkumar R","Aiden Elvin","Arnav Bhatt","Ashith Dev S","Ganeshkumar A T","Harsheel Pillai","Manish Adhav J","Naren B","Rajdev D","Rishik S","Sriramajayam S","Yugadevsen","Anusha R","Ashika R","Avanthika S","Dhiya Sri S","Haradhana D S","Hardhika Alavandar S","Harshika Puliyadi Ashok","Heenasai V P","Iyal S","Kayal Vizhi R Y","Mahanyaa R","Mamatha Sivani K","Meghana Aluru","Ojasvi Poal","Pragathi A","Prerna Sumanth","Sana J","Shaik Mehvish","Swathika S","Vaishnavi"],"8A":["Himaneesh Kotha","Muhammad Ayaan S","Akshitha Govindaraj","Ashlyn Lourdes","Evelyn Ann Peter","Jessie Grace A","Jonel Rebecca M","Krishiya Deepak","Lakshitha Govindaraj","Lishitha Rupesh Rathanala","Riya Kannadhasan","Sahanaa Vijay","Sreshta M","Thanisshka S","Trishna Trishikha Mohapatra"],"8B":["Adith V","Dakshesh T V","Dhiyan Suman","Hemish Nagireddy","Kavin P","Kirithick","Lathish Kumar L","Mithran G","Mrinmoy Bhakat","Sanjith J K","Sasank Sai","Shraavan Vikaas G","Yeshwanth Reddy A","Aadhira","Adhirai Pretham","Abirami S","Charumitraa S","Devathmika","Fathima Farah A","Harshitha D","Laksha Jaisarani","Rackchitha V","Raksha Rajesh","Samanvitha","Saumya","Shazia Naaz","Srimathi K","Tanisha Hoor"]};
+
+// ---------- question engine (deterministic by grade + date, so every teacher sees the same case) ----------
+const mul=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+let Rn;const n=(a,b)=>a+Math.floor(Rn()*(b-a+1)),p=a=>a[n(0,a.length-1)],gcd=(a,b)=>b?gcd(b,a%b):a,f=x=>+x.toFixed(2);
+const N=['Mystery Number','Case Builder','Beat Yesterday’s You','Real-Life Case','Mistake Hunter'];
+const TP=['Solve in the Case File. Show the working, even if it is one line.','Children create the puzzle, then swap with a neighbour. Teacher checks one pair.','3 minutes. Each child writes the score out of 8 and tries to beat last Wednesday.','Show working with units. Ask: where have you seen this in real life?','Find the mistake, fix it, and write it in the Mistake Museum page.'];
+const M=[[
+()=>{let x=n(3,20),m=n(2,6),a=n(3,15),c=n(2,9);return[`I am a number. Multiply me by ${m}, add ${a}, then subtract ${c}. The result is ${x*m+a-c}. Who am I?`,`${x} (work backwards)`]},
+()=>{let k,d,S;for(let i=0;i<99;i++){k=p([3,4,6,7,9]);let x=k*n(Math.ceil(10/k),Math.floor(99/k));d=(x/10|0)+x%10;S=[];for(let y=10;y<100;y++)if(y%k==0&&(y/10|0)+y%10==d)S.push(y);if(S.length<3)break}return[`I am a 2-digit multiple of ${k}. My digits add up to ${d}. Who am I?`,S.join(' or ')]},
+()=>{let a=n(3,9),b=n(2,9);return[`Double me and add ${a}. Triple me and subtract ${b}. Both give the same answer. Who am I?`,a+b]}],[
+()=>{let x=-n(2,12),m=n(2,5),a=n(3,15);return[`I am an integer. Multiply me by ${m} and add ${a}. The result is ${x*m+a}. Who am I?`,x]},
+()=>{let x=n(-5,30);return[`The sum of three consecutive integers is ${3*x+3}. Find them.`,`${x}, ${x+1}, ${x+2}`]},
+()=>{let c=p([10,20,25,40,50]),x=n(2,20)*20;return[`${c}% of me is ${x*c/100}. Who am I?`,x]}],[
+()=>{let x=n(-9,12),a=n(2,6),b=n(1,9);return[`Add ${b} to me, then multiply by ${a}. The result is ${a*(x+b)}. Who am I?`,x]},
+()=>{let x=n(5,15),k=n(3,20);return[`I am a positive number. My square minus ${k} equals ${x*x-k}. Who am I?`,x]},
+()=>{let x=n(8,30),y=n(1,x-1);return[`Two numbers add up to ${x+y} and differ by ${x-y}. Find both.`,`${x} and ${y}`]}]];
+const O=v=>`Open-ended. Check that the puzzle truly gives ${v}, the clues are clear and the neighbour can solve it.`;
+const U=[[
+()=>{let v=n(10,60);return[`Create a puzzle whose answer is ${v}.`,`${O(v)} Sample: “Triple me and add 4 to get ${3*v+4}.”`]},
+()=>{let b=n(3,9),a=b*n(2,9);return[`Write a word problem that uses the numbers ${a} and ${b}.`,`Open-ended. Sample: ${a} sweets are shared equally among ${b} children. Each gets ${a/b}.`]},
+()=>{let v=n(20,99);return[`Make a 3-clue puzzle for your neighbour. Your secret number is ${v}.`,`Open-ended. Check that only ${v} fits all three clues.`]}],[
+()=>{let v=-n(2,15);return[`Create a puzzle whose answer is ${v}.`,`${O(v)} Sample: “Triple me and add 4 to get ${3*v+4}.”`]},
+()=>{let P=n(2,20)*100,d=p([10,20,25,50]);return[`Write a real-life problem about a ${d}% discount on an item costing ₹${P}.`,`Open-ended. Sample answer: the sale price is ₹${P*(100-d)/100}.`]},
+()=>{let v=n(-15,15);return[`Make a 3-clue integer puzzle for your neighbour. Your secret number is ${v}.`,`Open-ended. Check that only ${v} fits all three clues.`]}],[
+()=>{let v=n(-9,12);return[`Create an equation in x whose solution is x = ${v}.`,`Open-ended. Substitute x = ${v} to verify. Sample: 3x + 4 = ${3*v+4}.`]},
+()=>{let P=n(2,10)*1000,r=p([10,20]);return[`Write a real-life problem on percentage change or compound interest using ₹${P} and ${r}%.`,`Open-ended. Sample: after 1 year at ${r}% the amount is ₹${P*(100+r)/100}.`]},
+()=>{let v=n(4,15)**2;return[`Make a 3-clue puzzle whose answer is the perfect square ${v}.`,`Open-ended. Check that only ${v} fits all three clues.`]}]];
+const W=[[
+()=>{let a=n(6,12),b=n(6,12);return[`${a} × ${b}`,a*b]},()=>{let a=n(3,12),b=n(3,12);return[`${a*b} ÷ ${a}`,b]},
+()=>{let a=n(25,99),b=n(25,99);return[`${a} + ${b}`,a+b]},()=>{let a=n(60,99),b=n(11,59);return[`${a} − ${b}`,a-b]},
+()=>{let a=n(10,60)*2;return[`Half of ${a}`,a/2]},()=>{let a=p([10,25,50]),b=n(2,9)*20;return[`${a}% of ${b}`,a*b/100]},
+()=>{let a=n(2,9);return[`Minutes in ${a} hours`,a*60]},()=>{let g=n(2,9),[x,y]=p([[2,3],[3,4],[2,5],[3,5],[4,5]]);return[`HCF of ${g*x} and ${g*y}`,g]}],[
+()=>{let a=n(2,15),b=n(2,15);return[`${a} + (−${b})`,a-b]},()=>{let a=n(2,12),b=n(2,12);return[`(−${a}) × (−${b})`,a*b]},
+()=>{let a=n(2,12),b=n(2,12);return[`(−${a}) − (−${b})`,b-a]},()=>{let b=n(2,9),k=n(2,9);return[`${b*k} ÷ (−${b})`,-k]},
+()=>{let c=p([10,20,25,50]),x=n(2,15)*20;return[`${c}% of ${x}`,c*x/100]},()=>{let a=n(11,20);return[`${a}²`,a*a]},
+()=>{let a=n(2,9),b=n(2,9);return[`${a}x + ${b}x`,`${a+b}x`]},()=>{let s=n(3,15);return[`Perimeter of a square of side ${s} cm`,`${4*s} cm`]}],[
+()=>{let a=n(12,25);return[`${a}²`,a*a]},()=>{let c=n(2,10);return[`∛${c**3}`,c]},()=>{let s=n(12,30);return[`√${s*s}`,s]},
+()=>{let a=n(2,5);return[`(−${a})³`,-(a**3)]},()=>{let c=p([10,20,25,50]),x=n(2,15)*20;return[`${c}% of ${x}`,c*x/100]},
+()=>{let a=n(2,9);return[`(x + ${a})(x − ${a})`,`x² − ${a*a}`]},()=>{let a=n(2,5),b=n(2,5);return[`2^${a} × 2^${b} (value)`,2**(a+b)]},
+()=>{let a=n(2,9),b=n(2,9);return[`${a}x × ${b}x`,`${a*b}x²`]}]];
+const T=[[
+()=>{let u=n(3,15),q=n(2,9)*3,i=p(['pencils','eggs','notebooks','bananas']);return[`1 dozen ${i} costs ₹${12*u}. What is the cost of ${q} ${i}?`,`₹${q*u} (1 item costs ₹${u})`]},
+()=>{let l=n(10,30),b=n(5,l-1),r=n(10,50);return[`The school garden is ${l} m long and ${b} m wide. Fencing costs ₹${r} per metre. What is the total cost to fence it?`,`Perimeter = ${2*(l+b)} m, cost = ₹${2*(l+b)*r}`]},
+()=>{let s=n(1,3)*60+p([0,15,30,45]),d=n(70,170),F=e=>`${Math.floor(e/60)%12||12}:${String(e%60).padStart(2,'0')} PM`;return[`The school bus leaves at ${F(s)} and the trip takes ${Math.floor(d/60)} h ${d%60} min. When does it reach home?`,F(s+d)]}],[
+()=>{let a=p([10,20,25,30]),b=p([5,10,20]);return[`A shop gives ${a}% off, then another ${b}% off the new price. Is it the same as ${a+b}% off? Find the real total discount.`,`No. Real discount = ${f(a+b-a*b/100)}%`]},
+()=>{let P=n(2,10)*1000,r=p([5,8,10]),t=n(2,4);return[`Find the simple interest on ₹${P} at ${r}% per year for ${t} years. What is the total amount?`,`Interest ₹${P*r*t/100}, amount ₹${P+P*r*t/100}`]},
+()=>{let a,b,c,d,A,x;for(let i=0;i<99;i++){[a,b,c,d]=[n(60,95),n(60,95),n(60,95),n(60,95)];A=n(75,90);x=5*A-a-b-c-d;if(x>=40&&x<=100)break}return[`A student scored ${a}, ${b}, ${c} and ${d} in four tests. What must the fifth score be to get an average of ${A}?`,`${x} (total needed = ${5*A})`]}],[
+()=>{let P=p([5000,10000,20000]),r=p([10,20]);return[`Find the compound interest on ₹${P} at ${r}% per year for 2 years.`,`₹${Math.round(P*((1+r/100)**2-1))}`]},
+()=>{let c=p([10,20,25,30,50]);return[`A price rises by ${c}% and then falls by ${c}%. What is the net change?`,`Decrease of ${f(c*c/100)}%`]},
+()=>{let m=p([6,8,12]),d=p([10,12,15]),w=p([2,3,4,5,6,8,9,10,12,15,18,20].filter(w=>(m*d)%w==0&&w!=m));return[`${m} workers finish a job in ${d} days. How many days will ${w} workers take at the same pace?`,`${m*d/w} days (total work = ${m*d} worker-days)`]}]];
+const FR=[[
+()=>{let [a,b,c,d]=p([[1,2,1,3],[1,3,1,4],[2,3,1,4],[1,2,1,5],[3,4,1,2]]),u=a*d+c*b,v=b*d,g=gcd(u,v);return[`Teacher writes: ${a}/${b} + ${c}/${d} = ${a+c}/${b+d}. Find the mistake and fix it.`,`Denominators cannot be added. Correct: ${u/g}/${v/g}`]},
+()=>{let a=n(2,9),b=n(2,9),c=n(2,9);return[`Teacher writes: ${a} + ${b} × ${c} = ${(a+b)*c}. Find the mistake and fix it.`,`Multiply first (BODMAS). Correct: ${a+b*c}`]},
+()=>{let x=n(11,49);return[`Teacher writes: 0.${x} > 0.5 because ${x} is bigger than 5. Find the mistake.`,`0.5 = 0.50, which is greater than 0.${x}. Compare place by place, not digit count.`]}],[
+()=>{let a=n(2,6),b=a+n(1,4);return[`Teacher writes: (${a} + ${b})² = ${a}² + ${b}² = ${a*a+b*b}. Find the mistake.`,`Actual (${a}+${b})² = ${(a+b)**2}. The missing middle term is 2ab = ${2*a*b}.`]},
+()=>{let a=n(3,15),b=n(2,12);return[`Teacher writes: ${a} − (−${b}) = ${a-b}. Find the mistake and fix it.`,`Minus a negative becomes plus. Correct: ${a+b}`]},
+()=>{let c=p([10,20,25,50]);return[`Teacher writes: ₹100 rises ${c}% then falls ${c}%, so it is back to ₹100. Find the mistake.`,`After the rise: ₹${100+c}. A ${c}% fall on that gives ₹${f((100+c)*(1-c/100))}. The base changed.`]}],[
+()=>{let a=n(2,9);return[`Teacher writes: (x + ${a})² = x² + ${a*a}. Find the mistake.`,`Correct: x² + ${2*a}x + ${a*a}`]},
+()=>{let [a,b,c,d]=p([[9,16,3,4],[36,64,6,8],[25,144,5,12]]);return[`Teacher writes: √${a} + √${b} = √${a+b}. Find the mistake.`,`√${a}+√${b} = ${c+d}, but √${a+b} = ${Math.sqrt(a+b)}. Roots do not add inside.`]},
+()=>{let a=n(2,5),b=n(3,6);return[`Teacher writes: 2^${a} × 2^${b} = 2^${a*b}. Find the mistake.`,`Add the powers: 2^${a+b} = ${2**(a+b)}`]},
+()=>{let a=n(2,9);return[`Teacher writes: (−${a})² = −${a*a}. Find the mistake.`,`(−${a})(−${a}) = +${a*a}`]}]];
+const K=[M,U,W,T,FR];
+function getCase(g,s){const dn=P(s)/864e5,wd=new Date(P(s)).getUTCDay();if(wd%6==0)return null;Rn=mul(g*1e6+dn);const w=Math.floor((dn+3)/7),k=wd-1,L=K[k][g-6];let o;
+if(k==2){o=L.map(x=>x());return{t:N[k],tip:TP[k],q:o.map(x=>x[0]),a:o.map(x=>x[1])}}o=L[w%L.length]();return{t:N[k],tip:TP[k],q:o[0],a:o[1]}}
+
+// ---------- dates ----------
+const P=s=>{const[a,b,c]=s.split('-').map(Number);return Date.UTC(a,b-1,c)},iso=t=>new Date(t).toISOString().slice(0,10);
+const lab=(s,o)=>new Date(P(s)).toLocaleDateString('en-IN',Object.assign({timeZone:'UTC'},o||{weekday:'long',day:'numeric',month:'short',year:'numeric'}));
+const now=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const step=k=>{let t=P(S.d)+864e5*k;while([0,6].includes(new Date(t).getUTCDay()))t+=864e5*k;S.d=iso(t);S.show=false;draw()};
+
+// ---------- state ----------
+const T0=now();let S={g:6,s:'A',d:T0,tab:0,show:false,open:null};
+let DB={};try{DB=JSON.parse(localStorage.getItem('mda')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('mda',JSON.stringify(DB))}catch(e){}};
+const sec=()=>S.g+S.s,fmt=x=>String(x).replace(/(^|[\s(=,])-(\d)/g,'$1−$2');
+const RK=[[280,'Chief'],[180,'Senior Inspector'],[100,'Inspector'],[40,'Detective'],[0,'Trainee']];
+function mk(i,v){const c=sec(),nm=D[c][i];DB[c]=DB[c]||{};DB[c][S.d]=DB[c][S.d]||{};const m=DB[c][S.d];if(m[nm]===v)delete m[nm];else m[nm]=v;save();draw()}
+function all(){const c=sec();DB[c]=DB[c]||{};const m=DB[c][S.d]=DB[c][S.d]||{};D[c].forEach(x=>{if(m[x]===undefined)m[x]=1});save();draw()}
+function clr(){if(confirm('Clear all marks for this class on this date?')){if(DB[sec()])delete DB[sec()][S.d];save();draw()}}
+const li=x=>Array.isArray(x)?'<ol>'+x.map(i=>`<li>${fmt(i)}</li>`).join('')+'</ol>':`<p class="big">${fmt(x)}</p>`;
+const caseCard=(c,show,key)=>!c?'<div class="card">No case on weekends. Please pick a school day.</div>':`<div class="card"><span class="tag">${c.t}</span>${li(c.q)}<div class="tip">${c.tip}</div>${key?`<details open><summary>Answer key</summary><div class="ans">${li(c.a)}</div></details>`:`<button style="margin-top:10px" onclick="S.show=!S.show;draw()">${show?'Hide':'Show'} answer key</button>${show?`<div class="ans">${li(c.a)}</div>`:''}`}</div>`;
+
+function head(){const o=(a,v)=>a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('');
+return `<h1>🕵️ Math Detective Agency</h1><div class="sub">VNGS Navalur · Grades 6–8 · First 10 minutes of the first period</div>
+<div class="bar tabs">${['Today’s Case','Scores','Plan to December'].map((t,i)=>`<button class="${S.tab==i?'on':''}" onclick="S.tab=${i};draw()">${t}</button>`).join('')}</div>
+<div class="bar"><label>Grade <select onchange="S.g=+this.value;S.show=false;S.open=null;draw()">${o([6,7,8],S.g)}</select></label>
+${S.tab<2?`<label>Section <select onchange="S.s=this.value;S.open=null;draw()">${o(['A','B'],S.s)}</select></label>`:''}</div>`}
+
+function today(){const c=getCase(S.g,S.d),m=(DB[sec()]||{})[S.d]||{},nm=D[sec()],ok=Object.values(m).filter(v=>v===1).length,no=Object.values(m).filter(v=>v===0).length;
+return `<div class="bar"><button onclick="step(-1)">◀</button><input type="date" value="${S.d}" onchange="S.d=this.value||S.d;S.show=false;draw()"><button onclick="step(1)">▶</button><button onclick="S.d=T0;S.show=false;draw()">Today</button></div>
+<div class="mut">${lab(S.d)}</div>${caseCard(c,S.show)}
+<div class="card"><b>Class ${sec()}</b> <span class="mut">· ✓ ${ok} · ✗ ${no} · not marked ${nm.length-ok-no}</span>
+<div class="bar"><button onclick="all()">Mark unmarked all ✓</button><button onclick="clr()">Clear day</button></div>
+${nm.map((x,i)=>`<div class="row"><span>${i+1}. ${x}</span><span><button class="b ${m[x]===1?'ok':''}" onclick="mk(${i},1)">✓</button><button class="b ${m[x]===0?'no':''}" onclick="mk(${i},0)">✗</button></span></div>`).join('')}</div>`}
+
+function scores(){const c=sec(),db=DB[c]||{},ds=Object.keys(db).sort();
+const sc=x=>{let a=0,b=0,days=[];ds.forEach(d=>{const v=db[d][x];if(v!==undefined){v?a++:b++;days.push([d,v])}});return{a,b,days,st:2*a+b}};
+return `<div class="card"><b>Class ${c} – student scores</b><div class="mut">✓ = 2 stars, ✗ (tried) = 1 star. Tap a name to see earlier days.</div>
+${D[c].map((x,i)=>{const r=sc(x);return `<div class="row" onclick="S.open=S.open===${i}?null:${i};draw()" style="cursor:pointer"><span>${i+1}. ${x}</span><span class="mut">✓${r.a} ✗${r.b} · ★${r.st} · ${RK.find(k=>r.st>=k[0])[1]}</span></div>${S.open===i?`<div style="padding:4px 4px 8px">${r.days.length?r.days.slice().reverse().map(d=>`<span class="chip">${lab(d[0],{day:'numeric',month:'short'})} ${d[1]?'✓':'✗'}</span>`).join(''):'<span class="mut">No marks yet.</span>'}</div>`:''}`}).join('')}</div>
+<div class="card"><b>Earlier days (class ${c})</b>${ds.length?ds.slice().reverse().map(d=>{const v=Object.values(db[d]),a=v.filter(z=>z===1).length;return `<div class="row" style="cursor:pointer" onclick="S.d='${d}';S.tab=0;draw()"><span>${lab(d,{weekday:'short',day:'numeric',month:'short'})}</span><span class="mut">✓ ${a} of ${v.length} marked</span></div>`}).join(''):'<div class="mut">Nothing saved yet.</div>'}
+<div class="tip" style="margin-top:8px">Ranks: Trainee 0 · Detective 40 · Inspector 100 · Senior Inspector 180 · Chief 280 stars. Scores are saved in this browser on this device.</div></div>`}
+
+function plan(){let h=`<div class="mut">Grade ${S.g} cases and answer keys from today to 31 Dec 2026. For teacher use only.</div>`;
+for(let t=P(T0);t<=P('2026-12-31');t+=864e5){const d=iso(t),c=getCase(S.g,d);if(c)h+=`<div class="card"><div class="mut">${lab(d,{weekday:'long',day:'numeric',month:'short'})}</div>${caseCard(c,true,true)}</div>`.replace('<div class="card"><span','<div><span')}return h}
+
+function draw(){document.getElementById('app').innerHTML=head()+[today,scores,plan][S.tab]()}
+draw();
+</script></body></html>
